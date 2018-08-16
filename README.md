@@ -17,5 +17,5 @@
 ## txtCombineMultiLines
 中文段落中間斷行者，合併之。（未存檔）
 
-## txtFormatSingleLine
+## txtFormatIndent
 中文排版，用於電子書的製作。（未存檔）
