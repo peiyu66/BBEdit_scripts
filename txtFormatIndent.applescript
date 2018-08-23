@@ -42,6 +42,7 @@ tell application "BBEdit"
 	replace "?" using "？" searching in text 1 of text window 1 options {starting at top:true}
 	replace "!" using "！" searching in text 1 of text window 1 options {starting at top:true}
 	replace "," using "，" searching in text 1 of text window 1 options {starting at top:true}
+	replace ":" using "：" searching in text 1 of text window 1 options {starting at top:true}
 	
 	repeat 5 times --去章節前多餘空行
 		replace "^\\r\\r\\r([第]+[0-9|一二三四五六七八九十百○〇零廿卅]+[章節卷折集話])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
@@ -69,6 +70,7 @@ tell application "BBEdit"
 	replace "^　　([^。”\\r！？]*簡介[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(序[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(前言[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　(楔子[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(結語[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(後記[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　([<【《][^。”\\r！？]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
