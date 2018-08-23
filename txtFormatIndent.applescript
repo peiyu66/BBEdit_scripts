@@ -24,9 +24,8 @@ tell application "BBEdit"
 		replace "\\r\\r\\r" using "\\r\\r" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 5 times --相鄰兩行中間插入空行，使各行中間只空一行
-		replace "^(.+)\\r(.+)" using "\\1\\r\\r\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	end repeat
+	#相鄰兩行中間插入空行，使各行中間只空一行
+	replace "^(.+)\\r(.+)" using "\\1\\r\\r\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	#改用全型標點
 	replace "\"(.+?)\"" using "「\\1」" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
@@ -38,21 +37,26 @@ tell application "BBEdit"
 	replace "!" using "！" searching in text 1 of text window 1 options {starting at top:true}
 	replace "," using "，" searching in text 1 of text window 1 options {starting at top:true}
 	
-	repeat 10 times --去章節前多餘空行
+	repeat 5 times --去章節前多餘空行
 		replace "^\\r\\r\\r([第]*[0-9|一二三四五六七八九十百○零]+[章節卷折])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
 	#先全部縮排
 	replace "^([^\\r]+)$" using "　　\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	#移除文開頭的空行及縮排，然後章節前空行及凸排
-	select insertion point before line 1 of text window 1
-	set selection to "<top>"
-	replace "^<top>([\\r]*)([　]*)([^　\\r]+)$" using "\\3" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	
+	#章節前空行及凸排
+	replace "^　　([第]*[0-9|一二三四五六七八九十百○零]+[章節卷折部])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	
+	#移除文開頭的空行及縮排
+	repeat 5 times
+		replace "^([\\r　]*)$" using "" searching in lines 1 thru 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	end repeat
+	
+	#特別凸排
 	replace "^　　(作者：[^。”\\r！？]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　([^。”\\r！？]*簡介：[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(結語：[^。”\\r！？]+)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	replace "^　　(【[^。”\\r！？]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^　　([第]*[0-9|一二三四五六七八九十百○零]+[章節卷折部])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	select insertion point before line 1 of text window 1
 end tell
