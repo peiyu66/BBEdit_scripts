@@ -1,57 +1,58 @@
 tell application "BBEdit"
 	activate
 	
-	#¥ş«¬ªÅ®æ§ï¬°¥b«¬ªÅ®æ¡B2­ÓªÅ®æ¦X¨Ö¬°1­ÓªÅ®æ
-	replace "¡@" using " " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "¡@¡@" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@¡@" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	#å…¨å‹ç©ºæ ¼æ”¹ç‚ºåŠå‹ç©ºæ ¼ã€2å€‹ç©ºæ ¼åˆä½µç‚º1å€‹ç©ºæ ¼
+	replace "ã€€" using " " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "ã€€ã€€" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€" using "  " searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
-	repeat 30 times --²¾°£¨C¦æ«eªÅ®æ
+	repeat 10 times --ç§»é™¤æ¯è¡Œå‰ç©ºæ ¼
 		replace "^  " using "" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 		replace "^ " using "" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 10 times --²¾°£³æ¦æ¤§¤º2­Ó¥H¤WªºªÅ®æ
-		replace "^(.*) (.*) (.*) (.*) (.*)¡C" using "\\1\\2\\3\\4\\5¡C" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	repeat 10 times --ç§»é™¤å–®è¡Œä¹‹å…§2å€‹ä»¥ä¸Šçš„ç©ºæ ¼
+		replace "^(.*) (.*) (.*) (.*) (.*)ã€‚" using "\\1\\2\\3\\4\\5ã€‚" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 10 times --¥H¥y¸¹µ²§ôªÌµø¬°¥»¤å¡A²¾°£¨ä³æ¦æ¤§¤ºªº¦h¾lªÅ®æ
-		replace "^(.*) (.*)¡C" using "\\1\\2¡C" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	repeat 10 times --ä»¥å¥è™ŸçµæŸè€…è¦–ç‚ºæœ¬æ–‡ï¼Œç§»é™¤å…¶å–®è¡Œä¹‹å…§çš„å¤šé¤˜ç©ºæ ¼
+		replace "^(.*) (.*)ã€‚" using "\\1\\2ã€‚" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 10 times --²¾°£2¦æ¥H¤WªºªÅ¦æ¡A¨Ï¦U¦æ¤¤¶¡¥uªÅ¤@¦æ
+	repeat 10 times --ç§»é™¤2è¡Œä»¥ä¸Šçš„ç©ºè¡Œï¼Œä½¿å„è¡Œä¸­é–“åªç©ºä¸€è¡Œ
 		replace "\\r\\r\\r" using "\\r\\r" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 5 times --¬Û¾F¨â¦æ¤¤¶¡´¡¤JªÅ¦æ¡A¨Ï¦U¦æ¤¤¶¡¥uªÅ¤@¦æ
+	repeat 5 times --ç›¸é„°å…©è¡Œä¸­é–“æ’å…¥ç©ºè¡Œï¼Œä½¿å„è¡Œä¸­é–“åªç©ºä¸€è¡Œ
 		replace "^(.+)\\r(.+)" using "\\1\\r\\r\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	#§ï¥Î¥ş«¬¼ĞÂI
-	replace "\"(.+?)\"" using "¡u\\1¡v" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "¡§" using "¡u" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "¡¨" using "¡v" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "¡¥" using "¡y" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "¡¦" using "¡z" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "?" using "¡H" searching in text 1 of text window 1 options {starting at top:true}
-	replace "!" using "¡I" searching in text 1 of text window 1 options {starting at top:true}
-	replace "," using "¡A" searching in text 1 of text window 1 options {starting at top:true}
+	#æ”¹ç”¨å…¨å‹æ¨™é»
+	replace "\"(.+?)\"" using "ã€Œ\\1ã€" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "â€œ" using "ã€Œ" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "â€" using "ã€" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "â€˜" using "ã€" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "â€™" using "ã€" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "?" using "ï¼Ÿ" searching in text 1 of text window 1 options {starting at top:true}
+	replace "!" using "ï¼" searching in text 1 of text window 1 options {starting at top:true}
+	replace "," using "ï¼Œ" searching in text 1 of text window 1 options {starting at top:true}
 	
-	repeat 10 times --¥h³¹¸`«e¦h¾lªÅ¦æ
-		replace "^\\r\\r\\r([²Ä]*[0-9|¤@¤G¤T¥|¤­¤»¤C¤K¤E¤Q¦Ê¡³¹s]+[³¹¸`¨÷§é])([^¡C¡v¡¨\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	repeat 10 times --å»ç« ç¯€å‰å¤šé¤˜ç©ºè¡Œ
+		replace "^\\r\\r\\r([ç¬¬]*[0-9|ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹åç™¾â—‹é›¶]+[ç« ç¯€å·æŠ˜])([^ã€‚ã€â€\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	#¥ı¥ş³¡ÁY±Æ
-	replace "^([^\\r]+)$" using "¡@¡@\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	#²¾°£¤å¶}ÀYªºªÅ¦æ¤ÎÁY±Æ¡AµM«á³¹¸`«eªÅ¦æ¤Î¥Y±Æ
+	#å…ˆå…¨éƒ¨ç¸®æ’
+	replace "^([^\\r]+)$" using "ã€€ã€€\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	#ç§»é™¤æ–‡é–‹é ­çš„ç©ºè¡ŒåŠç¸®æ’ï¼Œç„¶å¾Œç« ç¯€å‰ç©ºè¡ŒåŠå‡¸æ’
 	select insertion point before line 1 of text window 1
 	set selection to "<top>"
-	replace "^(?s)<top>([\\r]*)([¡@]*)([^¡@\\r]+)$" using "\\3" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@¡@(§@ªÌ¡G[^¡C¡¨\\r¡I¡H]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@¡@([^¡C¡¨\\r¡I¡H]*Â²¤¶¡G[^¡C¡¨\\r¡I¡H]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@¡@(µ²»y¡G[^¡C¡¨\\r¡I¡H]+)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^¡@¡@([²Ä]*[0-9|¤@¤G¤T¥|¤­¤»¤C¤K¤E¤Q¦Ê¡³¹s]+[³¹¸`¨÷§é])([^¡C¡v¡¨\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^<top>([\\r]*)([ã€€]*)([^ã€€\\r]+)$" using "\\3" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€(ä½œè€…ï¼š[^ã€‚â€\\rï¼ï¼Ÿ]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€([^ã€‚â€\\rï¼ï¼Ÿ]*ç°¡ä»‹ï¼š[^ã€‚â€\\rï¼ï¼Ÿ]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€(çµèªï¼š[^ã€‚â€\\rï¼ï¼Ÿ]+)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€(ã€[^ã€‚â€\\rï¼ï¼Ÿ]+)$" using "\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^ã€€ã€€([ç¬¬]*[0-9|ä¸€äºŒä¸‰å››äº”å…­ä¸ƒå…«ä¹åç™¾â—‹é›¶]+[ç« ç¯€å·æŠ˜éƒ¨])([^ã€‚ã€â€\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	select insertion point before line 1 of text window 1
 end tell
