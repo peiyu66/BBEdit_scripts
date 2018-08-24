@@ -19,3 +19,7 @@
 
 ## txtFormatIndent
 中文排版，用於電子書的製作。（未存檔）
+
+### 參考
+* [BBEdit-TextWrangler Regular Expression Cheat-Sheet](https://gist.github.com/ccstone/5385334)
+* [BBEdit Grep Tutorial](https://anybrowser.org/bbedit/grep.html)
