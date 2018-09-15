@@ -1,6 +1,8 @@
 # BBEdit_scripts
 
 主要用途是文字排版。
+## splitRepeatly
+從搜尋到的章節標題，重複splitToNew的迴圈。（未存檔）
 
 ## splitToNew
 分割游標之後的文字到新文件視窗，並以第一行文字為新文件名。（未存檔）
