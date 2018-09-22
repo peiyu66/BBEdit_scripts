@@ -62,7 +62,7 @@ tell application "BBEdit"
 	#數字開頭的章節
 	replace "^　　([0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#只有數字開頭的標題
-	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、])([^。！？」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、]*)([^。！？」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	#移除文開頭的空行及縮排
 	repeat 5 times
