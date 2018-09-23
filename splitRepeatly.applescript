@@ -1,12 +1,22 @@
 tell application "BBEdit"
 	activate
 	#擇一pattern據以分割章節
-	#第幾章節開頭的標題
-	set pattern to "^([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
-	#數字開頭的章節
-	--set pattern to "^([0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話][^。」！？”\\r]*?)$"
-	#只有數字開頭的標題
-	--set pattern to "^([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
+	set pType to ""
+	set msg to "據以切割章節的標題格式？"
+	display dialog msg buttons {"第n章", "只n非章", "取消"} default button "取消" cancel button "取消"
+	if button returned of result = "第n章" then
+		#章節的標題
+		set pattern to "^([第][0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
+	else if button returned of result = "只n非章" then
+		#只有數字開頭的標題
+		set pattern to "^([（\\(<【《第]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
+		set pType to "只n非章"
+	else
+		return
+	end if
+	
+	#自訂格式
+	--set pattern to "^([第]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回][^。」”\\r]*?)$"
 	
 	
 	#先算共有幾個章節
@@ -63,15 +73,19 @@ tell application "BBEdit"
 		replace "^([\\d][\\d])$" using "0\\1" searching in line 1 of text window 1 options {search mode:grep, starting at top:true}
 		replace "^([\\d])$" using "00\\1" searching in line 1 of text window 1 options {search mode:grep, starting at top:true}
 		#轉換完畢，取數值為n
-		find "([\\d]+$)" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match	
+		find "([\\d]+$)" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
 		set n to selection as string
 		delete line 1 of text window 1
 		#取章節標題為t
-		find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
-		set t to selection as string
+		if pType = "只n非章" then
+			set t to ""
+		else
+			find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
+			set t to " " & selection as string
+		end if
 		#檔案名稱是標題冠數值，即 n+t.txt，這是為了正確排序
 		try
-			set name of document 1 to n & " " & t & ".txt"
+			set name of document 1 to n & t & ".txt"
 		end try
 		select insertion point before line 1 of text window 1
 	end repeat
