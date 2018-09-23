@@ -42,7 +42,7 @@ tell application "BBEdit"
 		find "[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+" searching in line 1 of text window 1 options {search mode:grep, starting at top:true, showing results:false, returning results:false} with selecting match
 		copy selection
 		select insertion point before line 1 of text window 1
-		set selection to (the clipboard) & "\\r"
+		set selection to (the clipboard) & "\r"
 		#轉換數值
 		replace "^[十]$" using "10" searching in line 1 of text window 1 options {search mode:grep, starting at top:false}
 		replace "一([十百])" using "1\\1" searching in line 1 of text window 1 options {search mode:grep, starting at top:false}
