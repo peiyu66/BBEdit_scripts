@@ -25,3 +25,4 @@
 ### 參考
 * [BBEdit-TextWrangler Regular Expression Cheat-Sheet](https://gist.github.com/ccstone/5385334)
 * [BBEdit Grep Tutorial](https://anybrowser.org/bbedit/grep.html)
+* [ePub改直排](https://github.com/peiyu66/BBEdit_scripts/wiki)
