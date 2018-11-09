@@ -3,14 +3,21 @@ tell application "BBEdit"
 	#擇一pattern據以分割章節
 	set pType to ""
 	set msg to "據以切割章節的標題格式？"
-	display dialog msg buttons {"第n章", "只n非章", "取消"} default button "取消" cancel button "取消"
+	display dialog msg buttons {"第n章", "只n或非章", "取消"} default button "取消" cancel button "取消"
 	if button returned of result = "第n章" then
 		#章節的標題
-		set pattern to "^([第][0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
-	else if button returned of result = "只n非章" then
+		display dialog msg buttons {"逐章", "01章", "取消"} default button "取消" cancel button "取消"
+		if button returned of result = "逐章" then
+			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
+		else if button returned of result = "01章" then
+			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[零0○〇][一1][章節卷折部集話回][^。」”\\r]*?)$"
+		else
+			return
+		end if
+	else if button returned of result = "只n或非章" then
 		#只有數字開頭的標題
-		set pattern to "^([（\\(<【《第]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
-		set pType to "只n非章"
+		set pattern to "^([（\\(<【《第卷]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
+		set pType to "只n或非章"
 	else
 		return
 	end if
@@ -52,7 +59,8 @@ tell application "BBEdit"
 		find "[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+" searching in line 1 of text window 1 options {search mode:grep, starting at top:true, showing results:false, returning results:false} with selecting match
 		copy selection
 		select insertion point before line 1 of text window 1
-		set selection to (the clipboard) & "\r"
+		set selection to (the clipboard) & "
+"
 		#轉換數值
 		replace "^[十]$" using "10" searching in line 1 of text window 1 options {search mode:grep, starting at top:false}
 		replace "一([十百])" using "1\\1" searching in line 1 of text window 1 options {search mode:grep, starting at top:false}
@@ -77,7 +85,7 @@ tell application "BBEdit"
 		set n to selection as string
 		delete line 1 of text window 1
 		#取章節標題為t
-		if pType = "只n非章" then
+		if pType = "只n或非章" then
 			set t to ""
 		else
 			find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
