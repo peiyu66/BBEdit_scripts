@@ -20,9 +20,9 @@ tell application "BBEdit"
 		replace "^(.+[，、「])[\\r]+(.+)$" using "\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
-	repeat 5 times --以句號結束者視為本文，移除其單行之內的多餘空格或折行
+	repeat 15 times --以句號結束者視為本文，移除其單行之內的多餘空格或折行
 		--replace "^([^。」？！”]+)\\r(.+[。！？」])$" using "\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-		replace "^(.+) (.+[。！？」])$" using "\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^([^a-z|0-9|　\\]+?) ([^a-z|0-9]+?[。！？」])$" using "\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
 	repeat 5 times --移除2行以上的空行，使各行中間只空一行
@@ -35,18 +35,23 @@ tell application "BBEdit"
 	end repeat
 	
 	#改用全型標點
-	replace "\"(.+?)\"" using "「\\1」" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "“" using "「" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "”" using "」" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "‘" using "『" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "’" using "』" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "\"(.+?)\"" using "「\\1」" searching in text 1 of text window 1 options {search mode:grep, starting at top:true}
+	replace "“" using "「" searching in text 1 of text window 1 options {starting at top:true}
+	replace "”" using "」" searching in text 1 of text window 1 options {starting at top:true}
+	replace "‘" using "『" searching in text 1 of text window 1 options {starting at top:true}
+	replace "’" using "』" searching in text 1 of text window 1 options {starting at top:true}
+	replace "\\(" using "（" searching in text 1 of text window 1 options {starting at top:true}
+	replace "\\)" using "）" searching in text 1 of text window 1 options {starting at top:true}
+	replace "\\[" using "[" searching in text 1 of text window 1 options {starting at top:true}
+	replace "\\]" using "]" searching in text 1 of text window 1 options {starting at top:true}
+	replace "~" using "～" searching in text 1 of text window 1 options {starting at top:true}
 	replace "?" using "？" searching in text 1 of text window 1 options {starting at top:true}
 	replace "!" using "！" searching in text 1 of text window 1 options {starting at top:true}
 	replace "," using "，" searching in text 1 of text window 1 options {starting at top:true}
 	replace ":" using "：" searching in text 1 of text window 1 options {starting at top:true}
 	
 	repeat 5 times --去章節前多餘空行
-		replace "^\\r\\r\\r([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話回])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^\\r\\r\\r([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 		replace "^\\r\\r\\r([卷][0-9|1234567890一二三四五六七八九十百○〇零廿卅]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 		replace "^\\r\\r\\r([0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 		replace "^\\r\\r\\r([（\\(<【《][0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
@@ -57,7 +62,7 @@ tell application "BBEdit"
 	
 	#章節前空行及凸排
 	#第幾章節的標題
-	replace "^　　([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#卷開頭的標題
 	replace "^　　([卷|段][0-9|1234567890一二三四五六七八九十百○〇零廿卅]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#數字開頭的章節
@@ -75,4 +80,7 @@ tell application "BBEdit"
 	replace "^　　([^。”\\r！？]*簡介[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	select insertion point before line 1 of text window 1
+	
 end tell
+
+
