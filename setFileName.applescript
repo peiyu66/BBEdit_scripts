@@ -1,4 +1,4 @@
-﻿tell application "BBEdit"
+tell application "BBEdit"
 	activate
 	set n to ""
 	set t to ""
@@ -50,7 +50,8 @@
 		end if
 	end if
 	#取章節標題為t
-	find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
+	#find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
+	find "^(.*[^\\.\\r])" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
 	set t to selection as string
 	#檔案名稱是標題冠數值，即 n+t.txt，這是為了正確排序
 	
