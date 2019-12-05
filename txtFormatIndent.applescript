@@ -44,13 +44,16 @@ tell application "BBEdit"
 	replace "\\)" using "）" searching in text 1 of text window 1 options {starting at top:true}
 	replace "\\[" using "[" searching in text 1 of text window 1 options {starting at top:true}
 	replace "\\]" using "]" searching in text 1 of text window 1 options {starting at top:true}
-	--replace "~" using "～" searching in text 1 of text window 1 options {starting at top:true}
 	replace "?" using "？" searching in text 1 of text window 1 options {starting at top:true}
 	replace "!" using "！" searching in text 1 of text window 1 options {starting at top:true}
-	replace "([^0-9]),|,([^0-9])" using "\1，\2" searching in text 1 of text window 1 options {starting at top:true}
 	replace ":" using "：" searching in text 1 of text window 1 options {starting at top:true}
 	--直排時用~~才能轉向
 	replace "～" using "~" searching in text 1 of text window 1 options {starting at top:true}
+	repeat 5 times
+		replace "([^0-9]),|,([^0-9])" using "\\1，\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true}
+		--時分秒還是要用半型冒號
+		replace "(^|[：:])([0-9]{2})：([0-9]{2})($|[：:])" using "\\1\\2:\\3\\4" searching in text 1 of text window 1 options {search mode:grep, starting at top:true}
+	end repeat
 	
 	repeat 5 times --去章節前多餘空行
 		replace "^\\r\\r\\r([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
