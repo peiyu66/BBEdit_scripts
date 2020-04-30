@@ -73,7 +73,7 @@ tell application "BBEdit"
 	#數字開頭的章節
 	replace "^　　([0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#只有數字開頭的標題
-	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、]*)([^，。！？」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、 \\r]+)([^，。！？」”\\r秒分小天]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	#移除文開頭的空行及縮排
 	repeat 5 times
@@ -82,7 +82,7 @@ tell application "BBEdit"
 	
 	#特別凸排
 	replace "^　　(作者|序|前言|引子|楔子|結語|後記|文案|[<【《])([^。”\\r！？]+)$" using "\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-	replace "^　　([^。”\\r！？]*簡介[^。”\\r！？]*)$" using "\\r\\1" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([^。”\\r！？]*簡介[^。”\\r！？]*)$" using "\\r\\1\\r" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	select insertion point before line 1 of text window 1
 	
