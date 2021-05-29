@@ -64,10 +64,10 @@ tell application "BBEdit"
 	end repeat
 	
 	repeat 5 times --去章節篇前多餘空行
-		replace "^\\r\\r\\r([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[章節篇卷折集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-		replace "^\\r\\r\\r([卷][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-		replace "^\\r\\r\\r([0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[章節篇卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
-		replace "^\\r\\r\\r([（\\(<【《][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[）\\)>】》])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^\\r\\r\\r([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[章節篇卷折集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^\\r\\r\\r([卷][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^\\r\\r\\r([0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[章節篇卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+		replace "^\\r\\r\\r([（\\(<【《][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[）\\)>】》])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	end repeat
 	
 	#先全部縮排
@@ -75,13 +75,13 @@ tell application "BBEdit"
 	
 	#章節前空行及凸排
 	#第幾章節的標題
-	replace "^　　([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[章節篇卷折部集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([第]+[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[章節篇卷折部集話回條])([^。」”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#卷開頭的標題
-	replace "^　　([卷|段][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([卷|段][0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+)([^。」？！”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#數字開頭的章節
-	replace "^　　([0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[章節篇卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[章節篇卷折集話])([^。」！？”\\r]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	#只有數字開頭的標題
-	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌]+[）\\)>】》 \\.\\-、 \\r]+)([^，。！？」”\\r秒分小天]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
+	replace "^　　([（\\(<【《]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅卌０１２３４５６７８９]+[）\\)>】》 \\.\\-、 \\r]+)([^，。！？」”\\r秒分小天]*)$" using "\\r\\r\\1\\2" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
 	
 	#移除文開頭的空行及縮排
 	repeat 5 times
