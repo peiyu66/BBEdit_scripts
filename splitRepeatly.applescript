@@ -1,26 +1,49 @@
 tell application "BBEdit"
 	activate
 	#擇一pattern據以分割章節
-	set pType to ""
-	set msg to "據以切割章節的標題格式？"
-	display dialog msg buttons {"第n章", "只n或非章", "取消"} default button "取消" cancel button "取消"
-	if button returned of result = "第n章" then
-		#章節的標題
-		display dialog msg buttons {"逐章", "01章", "取消"} default button "取消" cancel button "取消"
-		if button returned of result = "逐章" then
-			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
-		else if button returned of result = "01章" then
-			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[零0○〇][一1][章節卷折部集話回][^。」”\\r]*?)$"
-		else
-			return
-		end if
-	else if button returned of result = "只n或非章" then
-		#只有數字開頭的標題
-		set pattern to "^([（\\(<【《第卷]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
-		set pType to "只n或非章"
+	set pType to choose from list {"第n章", "第x01章", "第x1章", "第1章", "第n卷", "卷n"} with title "據以切割章節的標題格式？" default items {"第n章"}
+	if pType = {"第n章"} then
+		set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集回話][^。」”\\r]*?)$"
+	else if pType = {"第x01章"} then
+		set pattern to "^([第 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[零0○〇][一1][章節折部集話回][^。」”\\r]*?)$"
+	else if pType = {"第x1章"} then
+		set pattern to "^([第 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[一1][章節折部集話回][^。」”\\r]*?)$"
+	else if pType = {"第1章"} then
+		set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[卷部][^\\r]*?[第序一1]+?[章話幕][^。」”\\r]*?)$"
+	else if pType = {"第n卷"} then
+		set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回][^。」”\\r]*?)$"
+	else if pType = {"卷n"} then
+		set pattern to "^([（\\(<【《第卷]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
 	else
 		return
 	end if
+	(*
+	set msg to "據以切割章節的標題格式？"
+	display dialog msg buttons {"第n章", "", "取消"} default button "取消" cancel button "取消"
+	if button returned of result = "第n章" then
+		#章節的標題
+		display dialog msg buttons {"逐章", "逐卷", "x01章"} default button "逐章"
+		if button returned of result = "逐章" then
+			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[章節卷折部集話回][^。」”\\r]*?)$"
+			set pType to "逐章"
+		else if button returned of result = "逐卷" then
+			##卷等非章的標題
+			set pattern to "^([第卷 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回][^。」”\\r]*?)$"
+			set pType to "逐卷"
+		else if button returned of result = "x01章" then
+			set pattern to "^([第 |0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[零0○〇][一1][章節折部集話回][^。」”\\r]*?)$"
+			set pType to "x01章"
+		else
+			return
+		end if
+	else if button returned of result = "卷n" then
+		#只有數字結尾的標題
+		set pattern to "^([（\\(<【《第卷]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[）\\)>】》 \\.\\-、]*[^。！？」”\\r]*?)$"
+		set pType to "卷n"
+	else
+		return
+	end if
+	*)
 	
 	#自訂格式
 	--set pattern to "^([第]*[0-9|1234567890一二三四五六七八九十百○〇零廿卅]+[節卷折部集話回][^。」”\\r]*?)$"
@@ -30,6 +53,7 @@ tell application "BBEdit"
 	set countFound to 0
 	set endFound to false
 	set fromTop to true
+	select insertion point before line 1 of text window 1
 	repeat while not endFound
 		set s to (find pattern searching in text 1 of text window 1 options {search mode:grep, starting at top:fromTop, showing results:false, returning results:false} with selecting match)
 		if found of s then
@@ -39,7 +63,6 @@ tell application "BBEdit"
 			set endFound to true
 		end if
 	end repeat
-	
 	#開始切割，首章節不必算入次數
 	repeat countFound - 1 times
 		replace "(?s)" & pattern & "(.*?)" & pattern using "\\1\\2<t>\\3" searching in text 1 of text window 1 options {search mode:grep, starting at top:true, wrap around:false, backwards:false, case sensitive:false, match words:false, extend selection:false}
@@ -85,7 +108,7 @@ tell application "BBEdit"
 		set n to selection as string
 		delete line 1 of text window 1
 		#取章節標題為t
-		if pType = "只n或非章" then
+		if pType = {"卷n"} then
 			set t to ""
 		else
 			find "^(.+)$" searching in line 1 of text window 1 options {search mode:grep, starting at top:true} with selecting match
